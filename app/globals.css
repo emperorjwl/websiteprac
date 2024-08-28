@@ -1,33 +1,373 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  height: 100%;
+  margin: 0;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+main {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: #1A1A1A;
+  overflow-y: auto;
+}
+
+header {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding: 20px 190px;
+  z-index: 2;
+}
+
+header h3 {
+  color: white;
+}
+
+header img {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.searchbox {
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  backdrop-filter: blur(10px);
+  border: 1px solid #5FF3E1;
+}
+
+.searchbox i {
+  margin-left: 20px;
+  margin-right: 10px;
+  color: white;
+}
+
+.searchbox input {
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 16px;
+  background-color: transparent;
+  color: #5FF3E1;
+}
+
+.searchbox input::placeholder {
+  color: #2f7773;
+}
+
+main .header-title {
+  display: flex;
+}
+
+main .header-title h4 {
+  padding: 30px 50px;
+  color: white;
+}
+
+main .header-title h4:hover {
+  color: #5FF1ED;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.swiper-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 0;
+}
+
+.slide-content {
+  position: relative;
+  margin-top: 80px;
+}
+
+.movie-title-image {
+  max-width: 300px;
+  margin-top: 150px;
+  margin-left: 150px;
+}
+
+.about {
+  display: flex;
+  margin-left: 150px;
+  margin-top: 10px;
+}
+
+.nice {
+  font-size: 25px;
+  padding-right: 15px;
+  color: rgba(225, 225, 225, 0.5);
+}
+
+.rating {
+  font-size: 25px;
+  font-style: italic;
+  margin-right: 15px;
+  color: rgba(225, 225, 225, 0.5);
+}
+
+.desc {
+  display: block;
+  max-width: 600px;
+  margin-left: 150px;
+  margin-top: 20px;
+}
+
+.activities {
+  position: relative;
+  display: flex;
+  color: white;
+  margin-top: 20px;
+  margin-left: 150px;
+}
+
+.activities .watch {
+  font-size: 15px;
+  background-color: rgb(63, 0, 0);
+  padding: 8px 15px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px black;
+  color: #5FF3E1;
+}
+
+.activities .watch:hover {
+  background-color: #1e4e4c;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.activities .add {
+  color: #5FF3E1;
+  padding: 10px 20px;
+  background-color: black;
+  border-radius: 5px;
+  margin-left: 15px;
+  font-size: 15px;
+  box-shadow: 0px 0px 15px #1e4e4c;
+}
+
+.activities .add:hover {
+  background-color: rgb(63, 0, 0);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.signup {
+  position: relative;
+}
+
+.signup img {
+  width: 100%;
+  height: auto;
+  filter: brightness(0.7);
+  object-fit: cover;
+}
+
+.signup img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  filter: brightness(0.5);
+}
+
+.signup .signupdesc {
+  position: absolute;
+  color: #ffffff;
+  top: 40%;
+  margin-left: 350px;
+  text-align: center;
+  max-width: 800px;
+}
+
+.signup h2 {
+  display: flexbox;
+  font-weight: 800;
+  font-size: 50px;
+}
+
+.signup p {
+  margin-top: 20px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  font-size: larger;
+}
+
+.signup button {
+  padding: 15px 40px;
+  position: relative;
+  outline: none;
+  border: none;
+  z-index: 0;
+  border-radius: 12px;
+  color: white;
+  background: linear-gradient(45deg, #1e4e4c, black);
+  border-radius: 5px;
+  margin-left: 15px;
+  font-size: 15px;
+  box-shadow: 0 0 30px rgba(36, 103, 93, 0.8);
+  text-transform: uppercase;
+}
+
+.already {
+  display: flex;
+  margin-left: 300px;
+  margin-top: 20px;
+}
+
+.already .account {
+  font-size: small;
+  padding-right: 5px;
+}
+
+.already a {
+  font-size: smaller;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+
+
+
+@media (max-width:500px) {
+  header {
+    flex-direction: column;
+    padding: 50px 30px;
+  }
+
+  .header-title h4 {
+    text-align: center;
+  }
+
+  header .searchbox {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .searchbox input {
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  main .header-title h4 {
+    padding: 30px 20px;
+  }
+
+  .swiper-slide {
+    background-size: cover;
+    background-position: right center;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 300px;
+    padding: 0 20px;
+  }
+
+  .movie-title-image {
+    margin-top: 20px;
+    margin-left: 0;
+    max-width: 80%;
+  }
+
+  .about {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .nice,
+  .rating {
+    font-size: 1.2em;
+    margin: 5px 3px;
+    padding-right: 0;
+  }
+
+  .desc {
+    max-width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
+    font-size: 1em;
+  }
+
+  .activities {
+    position: relative;
+    display: flex;
+    color: white;
+    margin-top: 20px;
+    margin-left: 70px;
+  }
+
+  .signup {
+    position: relative;
+  }
+
+  .signup img {
+    height: 50vh;
+    width: 100%;
+  }
+
+  .signup .signupdesc {
+    position: absolute;
+    top: 25%;
+    margin-left: 0;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .signup h2 {
+    font-size: 1.5em;
+    /* Adjust font size for mobile */
+  }
+
+  .signup p {
+    font-size: 1em;
+    /* Adjust font size for mobile */
+  }
+
+  .signup button {
+    margin-left: 0;
+    width: 100%;
+    /* Make button full width */
+  }
+
+  .already {
+    margin-left: 0;
+    justify-content: center;
+    /* Center the text */
   }
 }

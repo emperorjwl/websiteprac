@@ -1,113 +1,214 @@
-import Image from "next/image";
+"use client";
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation, Scrollbar, Autoplay, Keyboard } from 'swiper/modules';
+import {motion} from 'framer-motion'
 
-export default function Home() {
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'swiper/css/scrollbar';
+
+interface MovieDetail {
+  movietitle: string;
+  title: string;
+  year: string;
+  rating: string;
+  duration: string;
+  genre: string;
+  description: string;
+  backgroundImage: string;
+}
+
+const movieDetails: MovieDetail[] = [
+  {
+    movietitle: "/img/deadwolvtitle.png",
+    title: "Deadpool and Wolverine",
+    year: "2024",
+    rating: "17+",
+    duration: "2h 8m",
+    genre: "Action, Comedy",
+    description:
+      "Deadpool's peaceful existence comes crashing down when the Time Variance Authority recruits him to help safeguard the multiverse. He soon unites with his would-be pal, Wolverine, to complete the mission and save his world from an existential threat.",
+    backgroundImage: "/img/deadwolvimg.jpg",
+  },
+  {
+    movietitle: "/img/despicabletitle.png",
+    title: "Despicable Me 4",
+    year: "2024",
+    rating: "PG",
+    duration: "1h 34m",
+    genre: "Animation, Action",
+    description:
+      "Gru welcomes a new member to the family, Gru Jr., who's intent on tormenting his dad. However, their peaceful existence soon comes crashing down when criminal mastermind Maxime Le Mal escapes from prison and vows revenge against Gru.",
+    backgroundImage: "/img/despicableimg.jpg",
+  },
+  {
+    movietitle: "/img/the-little-mermaid-title.png",
+    title: "The Little Mermaid",
+    year: "2023",
+    rating: "12+",
+    duration: "2hr 14min",
+    genre: "Romance",
+    description:
+      "The youngest of King Triton's daughters, Ariel is a beautiful and spirited young mermaid with a thirst for adventure. Longing to find out more about the world beyond the sea, Ariel visits the surface and falls for the dashing Prince Eric. Following her heart, she makes a deal with the evil sea witch, Ursula, to experience life on land.",
+    backgroundImage: "/img/bg-little-mermaid3.jpg",
+  },
+  {
+    movietitle: "/img/insideouttitle.png",
+    title: "Inside Out 2",
+    year: "2024",
+    rating: "PG",
+    duration: "1hr 37min",
+    genre: "Animation",
+    description:
+      "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
+    backgroundImage: "/img/insideoutimg.jpg",
+  },
+  {
+    movietitle: "/img/bdboystitle.webp",
+    title: "Bad Boys Ride or Die",
+    year: "2024",
+    rating: "15",
+    duration: "1hr 55min",
+    genre: "Action, Thriller",
+    description:
+      "When their late police captain gets linked to drug cartels, wisecracking Miami cops Mike Lowrey and Marcus Burnett embark on a dangerous mission to clear his name.",
+    backgroundImage: "/img/badboysimg.jpg",
+  },
+  {
+    movietitle: "/img/oppentitle.png",
+    title: "Oppenheimer",
+    year: "2023",
+    rating: "15",
+    duration: "3hr",
+    genre: "Drama, History",
+    description:
+      "During World War II, Lt. Gen. Leslie Groves Jr. appoints physicist J. Robert Oppenheimer to work on the top-secret Manhattan Project. Oppenheimer and a team of scientists spend years developing and designing the atomic bomb. Their work comes to fruition on July 16, 1945, as they witness the world's first nuclear explosion, forever changing the course of history.",
+    backgroundImage: "/img/oppenimg.jpg",
+  },
+  {
+    movietitle: "/img/barbietitle.png",
+    title: "Barbie",
+    year: "2023",
+    rating: "PG13",
+    duration: "1hr 54min",
+    genre: "Adventure",
+    description:
+      "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.",
+    backgroundImage: "/img/barbieimg.jpg",
+  },
+  {
+    movietitle: "/img/spidertitle.webp",
+    title: "Spider-Man: Across the Spider-Verse",
+    year: "2023",
+    rating: "PG",
+    duration: "1hr 20 min",
+    genre: "Animation, Action",
+    description:
+      "After reuniting with Gwen Stacy, Brooklyn’s full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters the Spider Society, a team of Spider-People charged with protecting the Multiverse’s very existence. But when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders and must set out on his own to save those he loves most.",
+    backgroundImage: "/img/spiderimg.jpg",
+  },
+];
+
+export default function App() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main>
+
+      <header>
+        <img src="/img/video.png" alt="Logo" />
+        <h3>Empy Movies</h3>
+        <div className="header-title">
+          <h4>Adults</h4>
+          <h4>Kids</h4>
+          <h4>Trending</h4>
+          <h4>My Library</h4>
         </div>
-      </div>
+        <div className="searchbox">
+          <i className="fa fa-search" aria-hidden="true"></i>
+          <input
+            placeholder="Search for a movie"
+            type="text"
+            aria-label="Search for a movie"
+          />
+        </div>
+      </header>
+      
+      <Swiper
+        direction={'vertical'}
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 10000 }}
+        keyboard={{ enabled: true }}
+        modules={[Pagination, Navigation, Scrollbar, Autoplay, Keyboard]}
+        loop={true} 
+        className="mySwiper"
+      >
+        {movieDetails.map((movie, index) => (
+          <SwiperSlide
+            key={index}
+            style={{
+              backgroundImage: `url(${movie.backgroundImage})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              height: '100vh',
+              color: 'white',
+            }}
+            className='swiper-slide'
+          >
+            <div className="slide-content">
+              <img src={movie.movietitle} alt={movie.title} className='movie-title-image'/>
+              <div className="about">
+                <p className='nice'>{movie.year} |</p>
+                <span className='rating'>{movie.rating}</span>
+                <p className='nice'>| {movie.duration} |</p>
+                <p className='nice'>{movie.genre}</p>
+              </div>
+              <p className='desc'>{movie.description}</p>
+            </div>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+            <div className="activities">
+              <span className='watch'><i className="fa fa-play-circle" aria-hidden="true"></i> WATCH</span>
+              <span className='add'><i className="fa fa-plus" aria-hidden="true"></i>  ADD TO LIBRARY</span>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+        <div className="signup">
+          <img src="/img/netflix image.jpg" alt="" />
+          <div className="signupdesc">
+            <motion.h2 
+            initial={{opacity:0, y:50}}
+            whileInView={{opacity:1,y:0, transition:{delay:0.2, duration:0.5}}}
+            viewport={{once:false,amount:.5}}>
+              Unlimited movies, TV shows, and more
+            </motion.h2>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+            <motion.p initial={{opacity:0, y:50}}
+            whileInView={{opacity:1,y:0, transition:{delay:0.2, duration:0.6}}}
+            viewport={{once:false,amount:.5}}>
+              Starts at US$2.99. Cancel anytime.
+            </motion.p>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+            <motion.button initial={{opacity:0, y:50}}
+            whileInView={{opacity:1,y:0, transition:{delay:0.2, duration:0.6}}}
+            viewport={{once:false,amount:.5}}>
+              Sign Up
+            </motion.button>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+            <div className="already">
+              <motion.span initial={{opacity:0, y:50}}
+              whileInView={{opacity:1,y:0, transition:{delay:0.2, duration:1}}}
+              viewport={{once:false,amount:.5}}className='account'>
+                Already have an account? 
+              </motion.span>
+              <motion.a initial={{opacity:0, y:50}}
+              whileInView={{opacity:1,y:0, transition:{delay:0.2, duration:1}}}
+              viewport={{once:false,amount:.5}} href="">Sign in</motion.a>
+            </div>
+          </div>
+        </div>
     </main>
+    
   );
 }
