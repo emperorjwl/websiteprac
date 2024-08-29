@@ -310,22 +310,22 @@ nav ul li a:hover {
 
   .usericon {
     display: flex;
-    width: 40px;
-    height: auto;
+    width: 30px;
+    height: 30px;
   }
 
   .hamburger {
     display: block;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     position: absolute;
-    margin-left: 70%;
+    margin-left: 65%;
   }
 
   .logo p {
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    font-size: 20px;
+    font-size: 15px;
   }
 
   .header-elements {
@@ -424,8 +424,8 @@ nav ul li a:hover {
   }
 
   .swiper {
-    width: 900px;
-    height: 300px;
+    width: 200%;
+    height: 35%;
   }
 
   .join {
