@@ -1,0 +1,147 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1A1A1A;
+}
+
+.wrapper {
+    max-width: 400px;
+    width: 100%;
+    padding: 40px 20px;
+    box-shadow: 0 0 20px #4fece6;
+    border-radius: 20px;
+}
+
+.wrapper img {
+    display: block;
+    /* Changed from flex to block to center within container */
+    margin: 0 auto 20px;
+    /* Centers image horizontally */
+    width: 50px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+    font-size: 25px;
+}
+
+.inputbox {
+    /* display: flex; */
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.inputbox i {
+    color: #4fece6;
+}
+
+.inputbox input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #333;
+    color: white;
+}
+
+.inputbox input::placeholder {
+    color: rgba(255, 255, 255, 0.641);
+}
+
+
+.inputbox input:focus {
+    border-color: #4fece6;
+    transition: 0.2s;
+    outline: none;
+}
+
+.remember {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0px;
+}
+
+.remember a {
+    text-decoration: none;
+    color: #4fece6;
+}
+
+.remember a:hover {
+    text-decoration: underline;
+}
+
+.remember label {
+    color: white;
+    cursor: pointer;
+}
+
+.remember input[type="checkbox"] {
+    margin-right: 2px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border-radius: 20px;
+    font-size: 1em;
+    border: none;
+    color: white;
+    background-color: #313131;
+}
+
+.accountalready {
+    /* display: flex; */
+
+    padding: 20px;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.accountalready p {
+    color: white;
+}
+
+
+.accountalready p a {
+    text-decoration: none;
+    color: #4fece6;
+}
+
+.accountalready p a:hover {
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 480px) {
+    .wrapper {
+        width: 80%;
+    }
+
+    .wrapper h1 {
+        font-size: 1.2em;
+    }
+
+    .remember a {
+        font-size: 0.8em;
+    }
+
+    .remember label {
+        font-size: 0.8em;
+    }
+
+    .accountalready {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .accountalready p {
+        color: white;
+        font-size: 0.7em;
+    }
+}

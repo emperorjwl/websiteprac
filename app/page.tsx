@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Link from "next/link";
 
 import {
   Autoplay,
@@ -86,17 +87,19 @@ export default function App() {
           >
             Starts at US$2.99. Cancel anytime.
           </motion.p>
-          <motion.button
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              transition: { delay: 0.2, duration: 0.6 },
-            }}
-            viewport={{ once: false, amount: 0.5 }}
-          >
-            Sign Up
-          </motion.button>
+          <Link href="/loginpage">
+            <motion.button
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                transition: { delay: 0.2, duration: 0.6 },
+              }}
+              viewport={{ once: false, amount: 0.5 }}
+            >
+              Sign Up
+            </motion.button>
+          </Link>
           <div className="already">
             <motion.span
               initial={{ opacity: 0, y: 50 }}
