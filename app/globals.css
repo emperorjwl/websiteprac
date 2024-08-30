@@ -291,6 +291,34 @@ nav ul li a:hover {
   color: #ffffff;
 }
 
+footer {
+  margin-top: 80px;
+  background-color: black;
+  color: white;
+  padding: 100px 200px;
+}
+
+footer .questions {
+  margin-bottom: 30px;
+}
+
+footer .questions a {
+  text-decoration: none;
+  color: white;
+}
+
+footer .column1 {
+  display: flex;
+  justify-content: space-between;
+  /* text-decoration: none; */
+}
+
+footer .column1 a {
+  text-decoration: none;
+  margin-bottom: 30px;
+  color: #5FF2E8;
+
+}
 
 
 
@@ -301,11 +329,12 @@ nav ul li a:hover {
 
 
 
-@media only screen and (max-width: 767px) {
+
+@media only screen and (max-width: 480px) {
   header {
     display: flex;
     align-items: center;
-    padding: 20px 30px;
+    padding: 45px 30px;
   }
 
   .usericon {
@@ -329,17 +358,20 @@ nav ul li a:hover {
   }
 
   .header-elements {
-    margin-left: 100px;
-    display: none;
-    /* flex-direction: column; */
-    width: 80%;
-    height: 43vh;
+    height: auto;
     background-color: rgba(0, 0, 0, 0.9);
-    padding: 10px 0;
     position: absolute;
-    top: 55px;
     overflow: hidden;
     z-index: 1;
+    display: none;
+    width: 70%;
+    right: 0;
+    left: auto;
+    top: 80px;
+    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+
   }
 
   .header-elements.open {
@@ -348,10 +380,10 @@ nav ul li a:hover {
   }
 
   nav ul {
-    align-content: center;
+    align-content: right;
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin-left: 8%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -367,7 +399,7 @@ nav ul li a:hover {
   }
 
   .search-bar {
-    width: calc(100% - 40px);
+    width: 100%;
     padding: 10px 20px;
   }
 
@@ -456,4 +488,32 @@ nav ul li a:hover {
     padding: 30px;
     margin: 5px 20px;
   }
+
+  footer {
+    margin-top: 80px;
+    background-color: black;
+    color: white;
+    padding: 50px 20px;
+  }
+
+  /*footer .questions {
+      margin-bottom: 30px;
+    }
+  
+    footer .questions a {
+      text-decoration: none;
+      color: white;
+    }
+  
+    footer .column1 {
+      display: flex;
+      justify-content: space-between;
+      /* text-decoration: none; */
+}
+
+footer .column1 a {
+  text-decoration: none;
+  margin-bottom: 30px;
+  color: #5FF2E8;
+
 }

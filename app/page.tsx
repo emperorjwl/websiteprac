@@ -225,6 +225,30 @@ export default function App() {
           </p>
         </motion.div>
       </div>
+
+      <footer>
+        <p className="questions">
+          Questions? <a href="contact-us">Contact Us</a>
+        </p>
+
+        <div className="column1">
+          <a href="/account">
+            <span className="footdesc">Account</span>
+          </a>
+          <a href="/ways-to-watch">
+            <span className="footdesc">Ways to watch</span>
+          </a>
+          <a href="/only-on-empy-movies">
+            <span className="footdesc">Only on Empy Movies</span>
+          </a>
+        </div>
+
+        <div className="column2">
+          <span>
+            <p>© 2024, Empy Movies</p>
+          </span>
+        </div>
+      </footer>
     </main>
   );
 }
