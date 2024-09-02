@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
-import "./new.css";
+import "./signin.css";
 import styled from "styled-components";
 
-export default function Login() {
+export default function loginpage() {
   return (
     <wrapper>
       <div className="container">
         <div className="heading">
-          Sign Up for
+          Sign Into
           <img src="/img/video.png" alt="empy movies" />
         </div>
         <form action="" className="form">
@@ -28,17 +28,6 @@ export default function Login() {
             id="username"
             placeholder="Username"
           />
-          <label htmlFor="dob" className="dob-label">
-            Date of Birth:
-          </label>
-          <input
-            required
-            className="input"
-            type="date"
-            name="username"
-            id="username"
-            placeholder="Date Of Birth"
-          />
           <input
             required
             className="input"
@@ -47,21 +36,13 @@ export default function Login() {
             id="password"
             placeholder="Password"
           />
-          <input
-            required
-            className="input"
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Confirm Password"
-          />
           <span className="forgot-password">
             <a href="#">Forgot Password ?</a>
           </span>
-          <input className="login-button" type="submit" value="Sign up" />
+          <input className="login-button" type="submit" value="Sign in" />
         </form>
         <div className="social-account-container">
-          <span className="title">Or Sign Up with</span>
+          <span className="title">Or Sign in with</span>
           <div className="social-accounts">
             <button className="social-button google">
               <svg
@@ -97,7 +78,7 @@ export default function Login() {
         </div>
         <span className="agreement">
           <p>
-            Already have an account? <a href="/signinpage">Sign In</a>
+            Don't have an account? <a href="/loginpage">Sign Up</a>
           </p>
         </span>
       </div>
