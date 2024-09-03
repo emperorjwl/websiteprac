@@ -1,8 +1,8 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+
+import React, { useState, FormEvent } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
-
 import {
   Autoplay,
   Navigation,
@@ -14,20 +14,152 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 
+interface MovieResult {
+  id: string;
+  title: string;
+  year?: string;
+  poster?: string;
+  description?: string;
+}
+
+interface ApiResponseItem {
+  id: string;
+  l: string;
+  y?: number;
+  i?: {
+    imageUrl: string;
+  };
+  qid?: string;
+}
+
+const SearchResultsOverlay: React.FC<{
+  results: MovieResult[];
+  isVisible: boolean;
+  onClose: () => void;
+}> = ({ results, isVisible, onClose }) => {
+  if (!isVisible) return null;
+
+  return (
+    <div className="search-results-overlay">
+      <div className="search-results-content">
+        <button className="close-button" onClick={onClose}>
+          ×
+        </button>
+        <h2>Search Results</h2>
+        <div className="movie-grid">
+          {results.map((movie: MovieResult) => (
+            <div key={movie.id} className="movie-card">
+              <div className="movie-poster">
+                <img src={movie.poster} alt={movie.title} />
+              </div>
+              <div className="movie-info">
+                <h3 className="movie-title">{movie.title}</h3>
+                <p className="movie-year">{movie.year || "N/A"}</p>
+                <p className="movie-description">{movie.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function App() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<MovieResult[]>([]);
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+
+  const handleSearch = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+
+    setIsLoading(true);
+    setError("");
+    setSearchResults([]);
+
+    const autoCompleteUrl =
+      "https://online-movie-database.p.rapidapi.com/auto-complete";
+    const detailsUrl =
+      "https://online-movie-database.p.rapidapi.com/title/get-overview-details";
+    const options = {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+        "x-rapidapi-host": "online-movie-database.p.rapidapi.com",
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `${autoCompleteUrl}?q=${encodeURIComponent(searchQuery)}`,
+        options
+      );
+      const result = await response.json();
+
+      console.log("API Response:", result);
+
+      if (result && Array.isArray(result.d)) {
+        const moviePromises = result.d
+          .filter(
+            (item: ApiResponseItem) =>
+              item.qid === "movie" || item.qid === "tvSeries"
+          )
+          .map(async (item: ApiResponseItem) => {
+            const detailsResponse = await fetch(
+              `${detailsUrl}?tconst=${item.id}&currentCountry=US`,
+              options
+            );
+            const detailsResult = await detailsResponse.json();
+
+            return {
+              id: item.id,
+              title: item.l,
+              year: item.y ? item.y.toString() : "N/A",
+              poster: item.i ? item.i.imageUrl : "/img/placeholder.jpg",
+              description:
+                detailsResult.plotOutline?.text ||
+                detailsResult.plotSummary?.text ||
+                "No description available.",
+            };
+          });
+
+        const formattedResults = await Promise.all(moviePromises);
+        setSearchResults(formattedResults);
+        setIsOverlayVisible(true);
+      } else {
+        setSearchResults([]);
+        setError("No results found");
+      }
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+      setError("An error occurred while searching. Please try again later.");
+      setSearchResults([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const closeOverlay = () => {
+    setIsOverlayVisible(false);
+  };
+
   return (
     <main>
       <header>
-        <div className="logo">
-          <img src="/img/video.png" alt="Empy Movies Logo" />
-          <p>Empy Movies</p>
-        </div>
+        <a href="#">
+          <div className="logo">
+            <img src="/img/video.png" alt="Empy Movies Logo" />
+            <p>Empy Movies</p>
+          </div>
+        </a>
 
         <button className="hamburger" onClick={toggleMenu}>
           ☰
@@ -37,27 +169,22 @@ export default function App() {
           <nav>
             <ul>
               <li>
-                <a href="/">Home</a>
-              </li>
-              <li>
-                <a href="/movies">Movies</a>
-              </li>
-              <li>
-                <a href="/genres">Genres</a>
-              </li>
-              <li>
-                <a href="/top-rated">Top Rated</a>
-              </li>
-              <li>
-                <a href="/new-releases">New Releases</a>
+                <a href="/signinpage">Sign in</a>
               </li>
             </ul>
           </nav>
           <div className="search-bar">
-            <input type="text" placeholder="Search for a movie" />
+            <form onSubmit={handleSearch}>
+              <input
+                type="text"
+                placeholder="Search for a movie"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </form>
           </div>
         </div>
-        <a href="/">
+        <a href="/profile">
           <img src="/img/user.png" alt="User Icon" className="usericon" />
         </a>
       </header>
@@ -121,13 +248,21 @@ export default function App() {
                 transition: { delay: 0.2, duration: 1 },
               }}
               viewport={{ once: false, amount: 0.5 }}
-              href=""
+              href="/loginpage"
             >
               Sign in
             </motion.a>
           </div>
         </div>
       </div>
+
+      {isLoading && <p>Loading...</p>}
+
+      <SearchResultsOverlay
+        results={searchResults}
+        isVisible={isOverlayVisible}
+        onClose={closeOverlay}
+      />
 
       <div className="showing">
         <p>Now Showing</p>
@@ -140,38 +275,47 @@ export default function App() {
         modules={[Autoplay, Navigation, Pagination, Mousewheel, Keyboard]}
         autoplay={{ delay: 3000 }}
         loop={true}
-        navigation={true}
         pagination={true}
+        navigation={true}
         mousewheel={true}
         keyboard={true}
         className="mySwiper"
       >
         <SwiperSlide>
-          <img src="/img/badboypost.jpg" />
+          <img src="/img/sheldonpost.jpg" alt="Bad Boy" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/img/barbiepost.jpg" />
+          <img src="/img/badboypost.jpg" alt="Bad Boy" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/img/despicablepost.jpg" />
+          <img src="/img/barbiepost.jpg" alt="Barbie" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/img/deadwolvposter.jpg" />
+          <img src="/img/peakypost.jpg" alt="Barbie" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/img/insideoutpost.jpg" />
+          <img src="/img/despicablepost.jpg" alt="Despicable Me" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/img/johnwickpost.jpg" />
+          <img src="/img/deadwolvposter.jpg" alt="Deadpool" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/img/openpost.jpg" />
+          <img src="/img/insideoutpost.jpg" alt="Inside Out" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/img/mermaidpost.jpg" />
+          <img src="/img/theboyspost.jpg" alt="Inside Out" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/img/spiderpost.jpg" />
+          <img src="/img/johnwickpost.jpg" alt="John Wick" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="/img/openpost.jpg" alt="Open" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="/img/mermaidpost.jpg" alt="Mermaid" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="/img/spiderpost.jpg" alt="Spider-Man" />
         </SwiperSlide>
       </Swiper>
 
